@@ -1,4 +1,4 @@
-package com.github.lebw.tacocloud;
+package com.github.lebw.tacocloud.domain;
 
 /**
  * @author LBW

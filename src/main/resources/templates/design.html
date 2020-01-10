@@ -10,7 +10,7 @@
         <h1>Design your Taco!</h1>
         <img th:src="@{/images/Taco-Cloud.jpeg}"/>
 
-        <form method="POST" th:action="@{/design}" th:object="${design}">
+        <form method="POST" th:action="@{/design}" th:object="${taco}">
             <div th:if="${#fields.hasErrors()}">
                 <span class="validationError">
                 Please correct the problems below and resubmit. </span>
