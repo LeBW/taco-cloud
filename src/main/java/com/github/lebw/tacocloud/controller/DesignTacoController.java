@@ -48,7 +48,9 @@ public class DesignTacoController {
     @GetMapping
     public String showDesignForm(Model model) {
         List<Ingredient> ingredients = new ArrayList<>();
-        ingredientRepository.findAll().forEach(ingredients::add);
+        for(Ingredient ingredient: ingredientRepository.findAll()) {
+            ingredients.add(ingredient);
+        }
 
         Type[] types = Type.values();
         for (Type type: types) {
@@ -70,7 +72,7 @@ public class DesignTacoController {
 
         Taco saved = tacoRepository.save(taco);
 
-        order.getTacos().add(saved.getId());
+        order.addDesign(saved);
 
         log.info("Processing design: " + taco);
         return "redirect:/orders/current";
