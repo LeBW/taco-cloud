@@ -1,9 +1,11 @@
 package com.github.lebw.tacocloud.controller;
 
 import com.github.lebw.tacocloud.domain.Order;
+import com.github.lebw.tacocloud.domain.User;
 import com.github.lebw.tacocloud.repository.OrderRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -33,10 +35,12 @@ public class OrderController {
     }
 
     @PostMapping
-    public String processOrder(@Valid Order order, Errors errors, SessionStatus sessionStatus) {
+    public String processOrder(@Valid Order order, Errors errors, SessionStatus sessionStatus, Authentication authentication) {
         if (errors.hasErrors()) {
             return "orderForm";
         }
+        User user = (User) authentication.getPrincipal();
+        order.setUser(user);
 
         log.info("Order submitted: " + order);
         orderRepository.save(order);
